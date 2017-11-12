@@ -41,24 +41,24 @@ public class BarChart
 
 
 	//run
-	//此处用for循环，将每家店的数字量化为*的数量
-	for (int i1 = 1 ; i1 <= a2 ; i1++)
+	//此处用for循环，将每家店的数字量化为*的数量，多一*减一数额，减至0为止
+	for (a2 = a2 ; a2 > 0 ; a2--)
 	{
 	    a = a + '*';
 	}
-	for (int i2 = 1 ; i2 <= b2 ; i2++)
+	for (b2 = b2 ; b2 > 0 ; b2--)
 	{
 	    b = b + '*';
 	}
-	for (int i3 = 1 ; i3 <= c2 ; i3++)
+	for (c2 = c2 ; c2 > 0 ; c2--)
 	{
 	    c = c + '*';
 	}
-	for (int i4 = 1 ; i4 <= d2 ; i4++)
+	for (d2 = d2 ; d2 > 0 ; d2--)
 	{
 	    d = d + '*';
 	}
-	for (int i5 = 1 ; i5 <= e2 ; i5++)
+	for (e2 = e2 ; e2 > 0 ; e2--)
 	{
 	    e = e + '*';
 	}
