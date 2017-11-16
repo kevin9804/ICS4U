@@ -10,6 +10,9 @@ public class Children extends Account
     private HouseholdChore[] householdChores;
     private String[] types;
     private int number;
+    private RewardPoints[] points;
+    private int points_number;
+    private int point, chore_number;
 
     public Children (String name, int id)
     {
@@ -20,6 +23,7 @@ public class Children extends Account
     public void mainScreen () throws IOException
     {
 	readChoreTypes ();
+	readPoints ();
 	while (true)
 	{
 	    System.out.println ("\n");
@@ -43,13 +47,14 @@ public class Children extends Account
 	    else if (selection == 4)
 		submitAssignment ();
 	    else if (selection == 5)
-		System.out.println ("Get rewards");
+		getRewards ();
 	    else if (selection == 6)
 		break;
 	    else
 		System.out.println ("\nThe number you entered is wrong. Please try again");
 	}
 	saveChores ();
+	savePoints ();
     }
 
 
@@ -141,6 +146,28 @@ public class Children extends Account
 		System.out.println (householdChores [i]);
 		System.out.println ("\n");
 	    }
+    }
+
+
+    public void getRewards ()
+    {
+	point = 0;
+	chore_number = 0;
+	for (int i = 0 ; i < points_number ; i++)
+	{
+	    if (points [i].getReceiver ().compareTo (getName ()) == 0)
+	    {
+		point += points [i].getPoints ();
+		chore_number++;
+	    }
+	}
+	if (chore_number != 0)
+	{
+	    System.out.println ("You have " + chore_number + " can get. There are totally " + point + " points");
+	    System.out.println ("Go to see your parents and get them. -_-||");
+	}
+	else
+	    System.out.println ("You do not have any point to get for now. Come back later.");
     }
 
 
@@ -253,6 +280,44 @@ public class Children extends Account
 	}
 
 
+	output.close ();
+    }
+
+
+    public void readPoints () throws IOException
+    {
+	String inputFileLoc = "RewardPoints";
+	BufferedReader infile;
+	infile = new BufferedReader (new FileReader (inputFileLoc));
+	points_number = Integer.parseInt (infile.readLine ());
+	if (points_number < 1)
+	{
+	    return;
+	}
+	else
+	{
+	    points = new RewardPoints [points_number];
+	    for (int i = 0 ; i < points_number ; i++)
+	    {
+		points [i] = new RewardPoints (infile.readLine (), Integer.parseInt (infile.readLine ()));
+	    }
+	    infile.close ();
+	    readChores ();
+	}
+    }
+
+
+    public void savePoints () throws IOException
+    {
+	String outputFileLoc = "RewardPoints";
+	PrintWriter output;
+	output = new PrintWriter (new FileWriter (outputFileLoc));
+	output.println (points_number);
+	for (int i = 0 ; i < points_number ; i++)
+	{
+	    output.println (points [i].getReceiver ());
+	    output.println (points [i].getPoints ());
+	}
 	output.close ();
     }
 } // Children class

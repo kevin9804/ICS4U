@@ -10,6 +10,8 @@ public class Parents extends Account
     private HouseholdChore[] householdChores;
     private String[] types;
     private int number;
+    private RewardPoints[] points;
+    private int points_number;
 
     public Parents (String name, int id)
     {
@@ -20,6 +22,7 @@ public class Parents extends Account
     public void mainScreen () throws IOException
     {
 	readChoreTypes ();
+	readPoints ();
 	while (true)
 	{
 	    System.out.println ("\n");
@@ -40,13 +43,14 @@ public class Parents extends Account
 	    else if (selection == 3)
 		deleteAssignment ();
 	    else if (selection == 4)
-		System.out.println ("Give rewards");
+		giveRewards ();
 	    else if (selection == 5)
 		break;
 	    else
 		System.out.println ("\nThe number you entered is wrong. Please try again");
 	}
 	saveChores ();
+	savePoints ();
     }
 
 
@@ -124,6 +128,33 @@ public class Parents extends Account
 	    System.out.println ("Successful delete the household chore.");
 	else
 	    System.out.println ("Fail delete the household chore.");
+    }
+
+
+    public void giveRewards ()
+    {
+	listAssignment ();
+	System.out.print ("Please enter the number before household chore you want to give the points to the worker: ");
+	selection = Stdin.readInt ();
+	if (selection < 1 && selection > number)
+	{
+	    System.out.println ("Wrong input of selection. Fail to delete.\n");
+	    return;
+	}
+	System.out.println ("Getting the states of the household chore...");
+	if (householdChores [selection - 1].getStates ().compareTo ("finish") == 0)
+	{
+	    RewardPoints[] new_points = new RewardPoints [points_number + 1];
+	    for (int i = 0 ; i < points_number ; i++)
+	    {
+		new_points [i] = points [i];
+	    }
+	    new_points [points_number] = new RewardPoints (householdChores [selection - 1].getWorker (), householdChores [selection - 1].getPoints ());
+	    points = new_points;
+	    points_number++;
+	}
+	else
+	    System.out.println ("The household chore you selected still not finish.");
     }
 
 
@@ -227,6 +258,44 @@ public class Parents extends Account
 	for (int i = 0 ; i < number ; i++)
 	{
 	    output.println (types [i]);
+	}
+	output.close ();
+    }
+
+
+    public void readPoints () throws IOException
+    {
+	String inputFileLoc = "RewardPoints";
+	BufferedReader infile;
+	infile = new BufferedReader (new FileReader (inputFileLoc));
+	points_number = Integer.parseInt (infile.readLine ());
+	if (points_number < 1)
+	{
+	    return;
+	}
+	else
+	{
+	    points = new RewardPoints [points_number];
+	    for (int i = 0 ; i < points_number ; i++)
+	    {
+		points [i] = new RewardPoints (infile.readLine (), Integer.parseInt (infile.readLine ()));
+	    }
+	    infile.close ();
+	    readChores ();
+	}
+    }
+
+
+    public void savePoints () throws IOException
+    {
+	String outputFileLoc = "RewardPoints";
+	PrintWriter output;
+	output = new PrintWriter (new FileWriter (outputFileLoc));
+	output.println (points_number);
+	for (int i = 0 ; i < points_number ; i++)
+	{
+	    output.println (points [i].getReceiver ());
+	    output.println (points [i].getPoints ());
 	}
 	output.close ();
     }

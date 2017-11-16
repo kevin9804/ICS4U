@@ -1,7 +1,9 @@
  Current account in the system:
- User: Kevin
- Password: 980430
+
+ User: Parents
+ Password: 123456
  type: Parents
+
  User: Children
  Password: 123456
  type: Children
@@ -31,3 +33,17 @@
 
  V 2.4
  Finish tests all the method in the application. 
+
+ V 3.0
+ Successfully add the rewards points system.
+ Parents can check the household chore when it has been done and then give the reward points to the worker.
+ Children can check the states of the points and get it when partents have confirm their working.
+
+ The end:
+ All the methods and classes in this project have been done. There are totally 23 files for this project.
+ One of them is this file (readme.txt)
+ 8 *.java files are 8 classes and also there are 8 *.class files are the compile files of them.
+ The last 6 file are the database used to store user name\password\types and household chore.
+ Finish date: 2017.11.16
+
+ ICS 4U Final Project by Yue Huang
