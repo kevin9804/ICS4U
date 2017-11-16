@@ -13,8 +13,6 @@ public abstract class HouseholdChore
     private String worker;
     private double expectedTime;
     private double actualTime;
-    private double ST; // ST means start time
-    private double ET; // ET means end time
 
     public HouseholdChore (int id, String name, String states, int points, String creator, double expectedTime)
     {

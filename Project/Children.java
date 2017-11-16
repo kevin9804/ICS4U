@@ -235,8 +235,6 @@ public class Children extends Account
 		householdChores [i] = chore;
 	    }
 	}
-
-
 	infile.close ();
     }
 
@@ -261,8 +259,6 @@ public class Children extends Account
 		    || householdChores [i].getStates ().compareTo ("deleted") == 0)
 		output.println (householdChores [i].getActualTime ());
 	}
-
-
 	output.close ();
 	saveChoreTypes ();
     }
@@ -278,8 +274,6 @@ public class Children extends Account
 	{
 	    output.println (types [i]);
 	}
-
-
 	output.close ();
     }
 
